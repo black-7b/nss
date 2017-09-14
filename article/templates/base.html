@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>FaceBussi</title>
+    </head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">  
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <body>
+        <div class="page-header">
+        	{% if user.is_authenticated %}
+       		 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+    		{% endif %}
+            <h1><a href="/">Проба пера</a></h1>
+        </div>
+        <div class="top-bar">
+            <section class="top-bar-section">
+                <ul class="right">
+                    {% if username %}
+                        <li><a href="/auth/logout/">Выйти ({{ username }})</a></li>
+                    {% else %}
+                        <li><a href="/auth/login/">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </section>
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block article %}{% endblock %}
+                {% block login %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
